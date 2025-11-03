@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "ES2015",
+    "module": "amd",
+    "lib": ["DOM", "ES2015"],
+    "strict": true,
+    "noEmitOnError": false,
+    "skipLibCheck": true,
+    "declaration": false,
+    "sourceMap": false,
+    "outFile": "app.js"
+  },
+  "include": ["app.ts"]
+}

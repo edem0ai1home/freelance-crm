@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Freelance CRM</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>📋 Freelance CRM</h1>
+    <div class="filters">
+        <label>Фильтр по статусу: </label>
+        <select id="statusFilter" onchange="filterClients()">
+            <option value="all">Все</option>
+            <option value="в_работе">В работе</option>
+            <option value="ожидает_оплаты">Ожидает оплаты</option>
+            <option value="завершён">Завершён</option>
+        </select>
+    </div>
+    <input type="text" id="name" placeholder="Имя клиента" oninput="searchClients()" />
+    <button onclick="addClient()">Добавить</button>
+    <button onclick="exportToCSV()">Экспорт в CSV</button>
+    <ul id="list"></ul>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
