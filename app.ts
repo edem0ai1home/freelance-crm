@@ -125,19 +125,30 @@ function removeClient(button: HTMLElement) {
   li?.remove();
 }
 
-// Экспорт в CSV
+// Экспорт всех клиентов в CSV
 function exportToCSV() {
-  const clients = getClients();
-  const headers = ['Имя,Статус,Дата'];
-  const rows = clients.map(c => `"${c.name}","${c.status}","${c.date}"`);
-  const csv = [...headers, ...rows].join('\n');
+  const clients = getClients(); // Получаем всех из localStorage
 
+  // Заголовки CSV
+  const headers = ['Имя', 'Статус', 'Дата'];
+  const csvRows = [
+    headers.join(','), // Первая строка — заголовки
+    ...clients.map(c => {
+      // Экранируем кавычки и оборачиваем поля в кавычки
+      const escapedName = `"${c.name.replace(/"/g, '""')}"`;
+      const escapedStatus = `"${c.status.replace(/"/g, '""')}"`;
+      const escapedDate = `"${c.date.replace(/"/g, '""')}"`;
+      return `${escapedName},${escapedStatus},${escapedDate}`;
+    })
+  ];
+
+  const csv = csvRows.join('\n');
   const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-  const link = document.createElement('a');
   const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
   link.setAttribute('href', url);
-  link.setAttribute('download', `clients_${new Date().toISOString().split('T')[0]}.csv`);
-  link.style.visibility = 'hidden';
+  link.setAttribute('download', `freelance-crm-backup-${new Date().toISOString().slice(0, 10)}.csv`);
+  link.style.display = 'none';
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
